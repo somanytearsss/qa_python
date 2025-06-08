@@ -4,6 +4,7 @@ from main import BooksCollector
 # обязательно указывать префикс Test
 class TestBooksCollector:
     #пример
+    #ку
 
     # пример теста:
     # обязательно указывать префикс test_
