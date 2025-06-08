@@ -1,3 +1,5 @@
+from pip._internal.index import collector
+
 from main import BooksCollector
 import pytest
 
@@ -21,7 +23,31 @@ class TestBooksCollector:
         # словарь books_rating, который нам возвращает метод get_books_rating, имеет длину 2
         assert len(collector.books_genre) == 2
 
+    def test_set_book_genre(self):
+        collector = BooksCollector()
 
+        name = 'Гарри Поттер'
+        collector.add_new_book(name)
+        collector.set_book_genre(name, 'Фантастика')
+        assert collector.books_genre [name] == 'Фантастика'
+
+    def test_get_book_genre(self):
+        # Создаем экземпляр класса BooksCollector
+        collector = BooksCollector()
+
+        # Название книги
+        name = 'Гарри Поттер'
+
+        # Добавляем новую книгу
+        collector.add_new_book(name)
+
+        # Устанавливаем жанр книги
+        genre = 'Фантастика'
+        collector.set_book_genre(name, genre)
+
+        # Проверяем, что метод get_book_genre возвращает правильный жанр
+        returned_genre = collector.get_book_genre(name)
+        assert returned_genre == genre
 
     # напиши свои тесты ниже
     # чтобы тесты были независимыми в каждом из них создавай отдельный экземпляр класса BooksCollector()
