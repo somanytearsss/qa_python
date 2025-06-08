@@ -48,9 +48,3 @@ class TestBooksCollector:
         # Проверяем, что метод get_book_genre возвращает правильный жанр
         returned_genre = collector.get_book_genre(name)
         assert returned_genre == genre
-        
-
-
-
-    # напиши свои тесты ниже
-    # чтобы тесты были независимыми в каждом из них создавай отдельный экземпляр класса BooksCollector()
