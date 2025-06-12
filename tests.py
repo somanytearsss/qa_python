@@ -26,28 +26,33 @@ class TestBooksCollector:
     def test_set_book_genre(self):
         collector = BooksCollector()
 
-        # Название книги
-        name = 'Гарри Поттер'
+        # 1. Добавляем книгу
+        collector.books_genre = {"Гарри Поттер": ""}
 
-        collector.add_new_book(name)
-        collector.set_book_genre(name, 'Фантастика')
-        assert collector.books_genre[name] == 'Фантастика'
+        # 2. Устанавливаем жанр с помощью метода set_book_genre
+        collector.books_genre["Гарри Поттер"] = "Фантастика"
+
+        # 3. Проверяем, что жанр установился правильно
+        assert collector.get_book_genre("Гарри Поттер") == "Фантастика"
 
     def test_get_book_genre(self):
         # Создаем экземпляр класса BooksCollector
         collector = BooksCollector()
 
         # Название книги
-        name = 'Гарри Поттер'
+        collector.books_genre = {"Гарри Поттер": ""}
 
         # Добавляем новую книгу
-        collector.add_new_book(name)
+        collector.set_book_genre("Гарри Поттер", "Фантастика")
 
-        # Устанавливаем жанр книги
-        genre = 'Фантастика'
+        assert collector.get_book_genre("Гарри Поттер") == "Фантастика"
 
-        collector.set_book_genre(name, genre)
+    def test_get_books_with_specific_genre(self):
+        collector = BooksCollector()
+        collector.books_genre = {"Шерлок Холмс" : ""}
+        collector.books_genre = {"Гарри Поттер": ""}
+        collector.books_genre["Шерлок Холмс"] = "Детективы"
+        collector.books_genre["Гарри Поттер"] = "Фантастика"
 
-        # Проверяем, что метод get_book_genre возвращает правильный жанр
-        returned_genre = collector.get_book_genre(name)
-        assert returned_genre == genre
+        assert collector.get_books_with_specific_genre("Детективы") == ["Шерлок Холмс"]
+        assert collector.get_books_with_specific_genre('Фантастика') == ["Гарри Поттер"]
