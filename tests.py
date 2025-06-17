@@ -17,7 +17,7 @@ class TestBooksCollector:
         collector.add_new_book('Что делать, если ваш кот хочет вас убить')
         assert len(collector.books_genre) == 2
 
-    def test_set_book_genre(self):
+    def test_set_book_genre__valid_genre_success(self):
         collector = BooksCollector()
         collector.add_new_book("Гарри Поттер")
         collector.set_book_genre("Гарри Поттер", "Фантастика")
@@ -25,7 +25,7 @@ class TestBooksCollector:
 
     @pytest.mark.parametrize("book_title, genre", [
         ("Молодость", "Комедии")])
-    def test_get_book_genre(self, book_title, genre):
+    def test_get_book_genre__returns_correct_genre(self, book_title, genre):
         collector = BooksCollector()
         collector.add_new_book(book_title)
         collector.set_book_genre(book_title, genre)
@@ -41,7 +41,7 @@ class TestBooksCollector:
         assert collector.get_books_with_specific_genre("Детективы") == ["Шерлок Холмс"]
         assert collector.get_books_with_specific_genre("Фантастика") == ["Гарри Поттер"]
 
-    def test_get_books_genre(self):
+    def test_get_books_genre__returns_full_dictionary(self):
         collector = BooksCollector()
         collector.add_new_book("Шерлок Холмс")
         collector.set_book_genre("Шерлок Холмс", "Детективы")
@@ -53,7 +53,7 @@ class TestBooksCollector:
             "Гарри Поттер": "Фантастика"
         }
 
-    def test_get_books_for_children(self):
+    def test_get_books_for_children__filters_age_restricted_genres(self):
         collector = BooksCollector()
 
         collector.add_new_book("Гарри Поттер")
@@ -79,7 +79,7 @@ class TestBooksCollector:
         assert "Оно" not in children_books
         assert "Шерлок Холмс" not in children_books
 
-    def test_add_book_in_favorites(self):
+    def test_add_book_in_favorites_success(self):
         collector = BooksCollector()
         collector.add_new_book("Гарри Поттер")
         collector.add_book_in_favorites("Гарри Поттер")
@@ -96,7 +96,7 @@ class TestBooksCollector:
     @pytest.mark.parametrize("books, expected_favorites", [
         (["Война и мир", "Анна Каренина"], ["Война и мир", "Анна Каренина"])
     ])
-    def test_get_list_of_favorites_books(self, books, expected_favorites):
+    def test_get_list_of_favorites_books__returns_all_favorites(self, books, expected_favorites):
         collector = BooksCollector()
 
         for book in books:
