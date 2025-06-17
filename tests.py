@@ -24,11 +24,14 @@ class TestBooksCollector:
         assert collector.get_book_genre("Гарри Поттер") == "Фантастика"
 
     @pytest.mark.parametrize("book_title, genre", [
-        ("Молодость", "Комедии")])
+        ("Молодость", "Комедии"),
+        ("Интерстеллар", "Фантастика"),
+        ("Криминальное чтиво", "Детективы")
+    ])
     def test_get_book_genre__returns_correct_genre(self, book_title, genre):
         collector = BooksCollector()
-        collector.add_new_book(book_title)
-        collector.set_book_genre(book_title, genre)
+        # Имитируем наличие книги с жанром напрямую через атрибут
+        collector.books_genre = {book_title: genre}
         assert collector.get_book_genre(book_title) == genre
 
     def test_get_books_with_specific_genre(self):
