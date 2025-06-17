@@ -91,7 +91,7 @@ class TestBooksCollector:
         collector.add_new_book("Мастер и Маргарита")
         collector.add_book_in_favorites("Мастер и Маргарита")
         collector.delete_book_from_favorites("Мастер и Маргарита")
-        
+
         assert "Мастер и Маргарита" not in collector.favorites
 
     @pytest.mark.parametrize("books, expected_favorites", [
