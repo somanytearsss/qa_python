@@ -23,11 +23,13 @@ class TestBooksCollector:
         collector.set_book_genre("Гарри Поттер", "Фантастика")
         assert collector.get_book_genre("Гарри Поттер") == "Фантастика"
 
-    def test_get_book_genre(self):
+    @pytest.mark.parametrize("book_title, genre", [
+        ("Молодость", "Комедии")])
+    def test_get_book_genre(self, book_title, genre):
         collector = BooksCollector()
-        collector.add_new_book("Молодость")
-        collector.set_book_genre("Молодость", "Комедии")
-        assert collector.get_book_genre("Молодость") == "Комедии"
+        collector.add_new_book(book_title)
+        collector.set_book_genre(book_title, genre)
+        assert collector.get_book_genre(book_title) == genre
 
     def test_get_books_with_specific_genre(self):
         collector = BooksCollector()
@@ -91,13 +93,17 @@ class TestBooksCollector:
         collector.delete_book_from_favorites("Мастер и Маргарита")
         assert "Мастер и Маргарита" not in collector.favorites
 
-    def test_get_list_of_favorites_books(self):
+    @pytest.mark.parametrize("books, expected_favorites", [
+        (["Война и мир", "Анна Каренина"], ["Война и мир", "Анна Каренина"])
+    ])
+    def test_get_list_of_favorites_books(self, books, expected_favorites):
         collector = BooksCollector()
-        collector.add_new_book("Война и мир")
-        collector.add_new_book("Анна Каренина")
-        collector.add_book_in_favorites("Война и мир")
-        collector.add_book_in_favorites("Анна Каренина")
-        assert collector.get_list_of_favorites_books() == ["Война и мир", "Анна Каренина"]
+
+        for book in books:
+            collector.add_new_book(book)
+            collector.add_book_in_favorites(book)
+
+        assert collector.get_list_of_favorites_books() == expected_favorites
 
 
 
