@@ -49,24 +49,29 @@ class TestBooksCollector:
 
     def test_get_books_with_specific_genre(self):
         collector = BooksCollector()
-        collector.books_genre = {"Шерлок Холмс" : ""}
-        collector.books_genre = {"Гарри Поттер": ""}
-        collector.books_genre["Шерлок Холмс"] = "Детективы"
-        collector.books_genre["Гарри Поттер"] = "Фантастика"
 
+        # Инициализация словаря с книгами и жанрами
+        collector.books_genre = {
+            "Шерлок Холмс": "Детективы",
+            "Гарри Поттер": "Фантастика"
+        }
+
+        # Проверка, что метод get_books_with_specific_genre возвращает ожидаемый результат
         assert collector.get_books_with_specific_genre("Детективы") == ["Шерлок Холмс"]
-        assert collector.get_books_with_specific_genre('Фантастика') == ["Гарри Поттер"]
+        assert collector.get_books_with_specific_genre("Фантастика") == ["Гарри Поттер"]
 
     def test_get_books_genre(self):
         collector = BooksCollector()
 
-        collector.add_new_book("Шерлок Холмс")
-        collector.set_book_genre("Шерлок Холмс", "Детективы")
+        # Инициализация словаря с книгами и жанрами
+        collector.books_genre = {
+            "Шерлок Холмс": "Детективы",
+            "Гарри Поттер": "Фантастика"
+        }
 
-        collector.add_new_book("Гарри Поттер")
-        collector.set_book_genre("Гарри Поттер", "Фантастика")
-
+        # Проверка, что метод get_books_genre возвращает ожидаемый результат
         assert collector.get_books_genre() == {
             "Шерлок Холмс": "Детективы",
             "Гарри Поттер": "Фантастика"
         }
+
