@@ -30,7 +30,6 @@ class TestBooksCollector:
     ])
     def test_get_book_genre__returns_correct_genre(self, book_title, genre):
         collector = BooksCollector()
-        # Имитируем наличие книги с жанром напрямую через атрибут
         collector.books_genre = {book_title: genre}
         assert collector.get_book_genre(book_title) == genre
 
